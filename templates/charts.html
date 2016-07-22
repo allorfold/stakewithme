@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stake Calculator</title>
+    {% include 'header.html' %}
+  </head>
+
+  <body>
+
+  <!-- container section start -->
+  <section id="container" class="">
+      <!--header start-->
+      {% include 'navbar.html' %}
+      <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">
+                  <li>
+                      <a class="" href="dashboard">
+                          <i class="icon_house_alt"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="calculator" class="">
+                          <i class="icon_document_alt"></i>
+                          <span>Calculator</span>
+                      </a>
+                  </li>
+                  <li class="active">
+                      <a class="" href="charts">
+                          <i class="icon_piechart"></i>
+                          <span>Charts</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_table"></i>
+                          <span>Tables</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="bettors">Better Info</a></li>
+                          <li><a class="" href="host">Host Info</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+  </section>
+  <!-- container section end -->
+  <section id="main-content">
+    <section class="wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="icon_piechart"></i> Chart</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="dashboard">Dashboard</a></li>
+                <li><i class="icon_piechart"></i>Chart</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+      <!-- chart morris start -->
+      <div class="col-lg-12">
+      <section class="panel">
+      <header class="panel-heading">
+          <h3>Hosting Chart -- Commissions</h3>
+      </header>
+        <div class="panel-body">
+          <div class="tab-pane" id="chartjs">
+            <div class="row">
+              <div class="col-lg-6">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          Daily Commission Chart
+                      </header>
+                      <div class="panel-body text-center">
+                          <canvas id="dailybar" height="300" width="450"></canvas>
+                      </div>
+                  </section>
+              </div>
+              <!-- Bar -->
+            <div class="col-lg-6">
+              <section class="panel">
+                  <header class="panel-heading">
+                      All Time Commission Chart
+                  </header>
+                  <div class="panel-body text-center">
+                      <canvas id="alltimebar" height="300" width="450"></canvas>
+                  </div>
+              </section>
+            </div>
+            <!-- Bar -->
+            </div>
+          </div>
+        </div>
+      </section>
+      </div>
+    </div>
+     <div class="row">
+      <!-- chart morris start -->
+      <div class="col-lg-12">
+      <section class="panel">
+      <header class="panel-heading">
+          <h3>Hosting Chart -- Average Bets</h3>
+      </header>
+        <div class="panel-body">
+            <div class="row">
+              <div class="col-lg-6">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          Average Total Bets Chart
+                      </header>
+                      <div class="panel-body text-center">
+                          <canvas id="averagetotalbar" height="300" width="450"></canvas>
+                      </div>
+                  </section>
+              </div>
+              <div class="col-lg-6">
+                  <section class="panel">
+                      <header class="panel-heading">
+                          Average Individual Bets Chart
+                      </header>
+                      <div class="panel-body text-center">
+                          <canvas id="averageindbar" height="300" width="450"></canvas>
+                      </div>
+                  </section>
+              </div>
+            <!-- Bar -->
+            </div>
+          </div>
+      </section>
+      </div>
+    </div>
+   </section>
+   </section>
+  </body>
+  {% include 'js.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var allTimeBarChartData = {
+                labels : [{%for item in values%}
+                            '{{item}}',
+                        {% endfor %}],
+                datasets : [
+                    {
+                        label: "All Time Commission",
+                        backgroundColor: [
+                            'rgba(34,139,34, 0.5)',
+                            'rgba(80,50,20, 0.5)',
+                            'rgba(192,192,192, 0.5)',
+                            'rgba(255,215,0, 0.5)',
+                            'rgba(153, 102, 255, 0.5)'
+                        ],
+                        data : [{% for item in alltimebardata %}
+                                    {{item}},
+                            {% endfor %}]
+                    }
+                ]
+            };
+
+            var dailyBarChartData = {
+                labels : [{%for item in values%}
+                            '{{item}}',
+                        {% endfor %}],
+                datasets : [
+                    {
+                        label: "Daily Commission",
+                        backgroundColor: [
+                            'rgba(34,139,34, 0.5)',
+                            'rgba(80,50,20, 0.5)',
+                            'rgba(192,192,192, 0.5)',
+                            'rgba(255,215,0, 0.5)',
+                            'rgba(153, 102, 255, 0.5)'
+                        ],
+                        data : [{% for item in dailybardata %}
+                                    {{item}},
+                            {% endfor %}],
+                        options: {
+                            hover:{
+                                mode: 'label'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            var averageTotalBarChartData = {
+                labels : [{%for item in values%}
+                            '{{item}}',
+                        {% endfor %}],
+                datasets : [
+                    {
+                        label: "Average Total Bet",
+                        backgroundColor: [
+                            'rgba(34,139,34, 0.5)',
+                            'rgba(80,50,20, 0.5)',
+                            'rgba(192,192,192, 0.5)',
+                            'rgba(255,215,0, 0.5)',
+                            'rgba(153, 102, 255, 0.5)'
+                        ],
+                        data : [{% for item in averagetotalbardata %}
+                                    {{item}},
+                            {% endfor %}],
+                        options: {
+                            hover:{
+                                mode: 'label'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            var averageIndBarChartData = {
+                labels : [{%for item in values%}
+                            '{{item}}',
+                        {% endfor %}],
+                datasets : [
+                    {
+                        label: "Average Individual Bet",
+                        backgroundColor: [
+                            'rgba(34,139,34, 0.5)',
+                            'rgba(80,50,20, 0.5)',
+                            'rgba(192,192,192, 0.5)',
+                            'rgba(255,215,0, 0.5)',
+                            'rgba(153, 102, 255, 0.5)'
+                        ],
+                        data : [{% for item in averageindbardata %}
+                                    {{item}},
+                            {% endfor %}],
+                        options: {
+                            hover:{
+                                mode: 'label'
+                            }
+                        }
+                    }
+                ]
+            };
+
+           new Chart(document.getElementById("alltimebar").getContext("2d"), {
+                type: 'bar',
+                data: allTimeBarChartData
+            });
+
+
+            new Chart(document.getElementById("dailybar").getContext("2d"), {
+                type: 'bar',
+                data: dailyBarChartData
+            });
+
+            new Chart(document.getElementById("averagetotalbar").getContext("2d"), {
+                type: 'bar',
+                data: averageTotalBarChartData
+            });
+
+            new Chart(document.getElementById("averageindbar").getContext("2d"), {
+                type: 'bar',
+                data: averageIndBarChartData
+            });
+        });
+    </script>
+</html>

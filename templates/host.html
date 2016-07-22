@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stake Calculator</title>
+    {% include 'header.html' %}
+  </head>
+
+  <body>
+
+  <!-- container section start -->
+  <section id="container" class="">
+      <!--header start-->
+      {% include 'navbar.html' %}
+      <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">
+                  <li>
+                      <a class="" href="dashboard">
+                          <i class="icon_house_alt"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="calculator" class="">
+                          <i class="icon_document_alt"></i>
+                          <span>Calculator</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="" href="charts">
+                          <i class="icon_piechart"></i>
+                          <span>Charts</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu active">
+                      <a href="javascript:;" class="">
+                          <i class="icon_table"></i>
+                          <span>Tables</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="bettors">Better Info</a></li>
+                          <li><a class="" href="host">Host Info</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+  </section>
+
+  <section id="main-content">
+    <section class="wrapper">
+      <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-table"></i> Host</h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="dashboard">Dashboard</a></li>
+                <li><i class="fa fa-table"></i>Tables</li>
+                <li><i class="fa fa-th-list"></i>Host Info</li>
+            </ol>
+        </div>
+      </div>
+          <!-- page start-->
+      <div class="row">
+        <div class="col-sm-12">
+            <section class="panel">
+                  <header class="panel-heading">
+                      {{username}}'s Total Statistics
+                  </header>
+                  <table class="table table-striped table-bordered" id="statistics">
+                      <thead>
+                      <tr>
+                          {%for item in totalvalues%}
+                            <td>{{item}}</td>
+                          {% endfor %}
+                      </tr>
+                      </thead>
+                      <tbody>
+                         {%for item in totalcommission%}
+                          <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                            <td>{{item[2]}}</td>
+                            <td>{{item[3]}}</td>
+                            <td>{{item[4]}}</td>
+                            <td>{{item[5]}}</td>
+                            <td>{{item[6]}}</td>
+                            <td>{{item[7]}}</td>
+                            <td>{{item[8]}}</td>
+                            <td>{{item[9]}}</td>
+                            <td>{{item[10]}}</td>
+                          </tr>
+                         {% endfor %}
+                      </tbody>
+                  </table>
+            </section>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+              <section class="panel">
+                  <header class="panel-heading">
+                      {{username}}'s Daily Commissions
+                  </header>
+                  <table class="table table-striped table-bordered" id="commissionsdaily">
+                      <thead>
+                      <tr>
+                          {%for item in dailyvalues%}
+                            <td>{{item}}</td>
+                          {% endfor %}
+                      </tr>
+                      </thead>
+                      <tbody>
+                         {%for item in dailycommissionvalues%}
+                          <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                          </tr>
+                         {% endfor %}
+                      </tbody>
+                  </table>
+              </section>
+          </div>
+          <div class="col-sm-6">
+              <section class="panel">
+                  <header class="panel-heading">
+                      {{username}}'s Weekly Commissions
+                  </header>
+                  <table class="table table-striped table-bordered" id="commissionsweekly">
+                      <thead>
+                      <tr>
+                          {%for item in weeklyvalues%}
+                            <td>{{item}}</td>
+                          {% endfor %}
+                      </tr>
+                      </thead>
+                      <tbody>
+                         {%for item in weeklycommissionvalues%}
+                          <tr>
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                          </tr>
+                         {% endfor %}
+                      </tbody>
+                  </table>
+              </section>
+          </div>
+      </div>
+      </div>
+      <!-- page end-->
+    </section>
+  </section>
+  </body>
+  {% include 'js.html' %}
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css"/>
+
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.js"></script>
+  <script type="text/javascript">
+        $(document).ready(function(){
+            $("#commissionsdaily").DataTable({
+                "order": [[0, "desc"]]
+            });
+            $("#commissionsweekly").DataTable({
+                "order": [[0, "desc"]]
+            });
+          });
+  </script>
+</html>

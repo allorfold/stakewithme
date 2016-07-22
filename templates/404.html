@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stake Calculator</title>
+    {% include 'header.html' %}
+  </head>
+
+  <body>
+
+  <!-- container section start -->
+  <section id="container" class="">
+      <!--header start-->
+      {% include 'navbar.html' %}
+      <!--sidebar start-->
+    <aside>
+        <div id="sidebar"  class="nav-collapse ">
+              <!-- sidebar menu start-->
+              <ul class="sidebar-menu">
+                  <li class="active">
+                      <a class="" href="dashboard">
+                          <i class="icon_house_alt"></i>
+                          <span>Dashboard</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="calculator" class="">
+                          <i class="icon_document_alt"></i>
+                          <span>Calculator</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="" href="charts">
+                          <i class="icon_piechart"></i>
+                          <span>Charts</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="javascript:;" class="">
+                          <i class="icon_table"></i>
+                          <span>Tables</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="bettors">Bettor Info</a></li>
+                          <li><a class="" href="host">Host Info</a></li>
+                      </ul>
+                  </li>
+              </ul>
+              <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+  </section>
+  <!-- container section end -->
+  <br><br><br><br><br>
+  <div class="page-404">
+    <p class="text-404">404</p>
+
+    <p>Something went horribly wrong. This page does not exist! <br><a href="dashboard">Return Home</a></p>
+  </div>
+
+    {% include 'js.html' %}
+
+  </body>
+
+
+</html>
